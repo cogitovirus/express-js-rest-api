@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/Enterprise_GenAI_Adoption_Impact.csv:/docker-entrypoint-initdb.d/Enterprise_GenAI_Adoption_Impact.csv
+    ports:
+      - "5432:5432"
