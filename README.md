@@ -48,7 +48,7 @@ DELETE /api/enterprises/:id
 - tests
 - authentication
 - authorization
-- mocha tests
+- jest tests
 - endpoints
 - best practices
 - swagger/openai doc

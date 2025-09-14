@@ -1,19 +1,17 @@
 import express from 'express';
 import enterpriseRoutes from './routes/enterpriseRoutes.js';
+import healthcheckRoutes from './routes/healthcheckRoutes.js';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.js';
 
 
 const app = express();
 app.use(express.json());
 
-app.get('/api/v1/healthcheck', (req, res) => {
-  res.json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
-});
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/api', enterpriseRoutes);
+app.use('/api/v1', enterpriseRoutes);
+app.use('/api/v1', healthcheckRoutes);
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 app.listen(PORT, () => {

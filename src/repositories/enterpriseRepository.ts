@@ -11,3 +11,9 @@ export async function findAllEnterprises(limit: number, offset: number): Promise
     total: parseInt(countRes.rows[0].count, 10)
   };
 }
+
+export async function findEnterpriseById(id: number): Promise<Enterprise | null> {
+  const res = await pool.query('SELECT * FROM enterprise_genai_adoption_impact WHERE id = $1', [id]);
+  if (res.rows.length === 0) return null;
+  return res.rows[0] as Enterprise;
+}
